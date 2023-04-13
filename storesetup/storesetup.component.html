@@ -1,0 +1,113 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<!-- <app-header></app-header> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<div class="container-fluid mt-4" style="width:100%">
+  <div class="col-lg-12 mx-auto px-4">
+    <div class="d-flex justify-content-between align-items-baseline">
+      <div class="sub_head"><span>//</span> Store Setup </div>
+      <div style="font-family:'RobotoCondensed-Regular';"> Selected Store : <span style="color:#2190fe;">
+          {{storename}}</span></div>
+      <div class="backPage"><span (click)="deallogpage()" class="mainbtn">Deal Log</span><span class="nrmlbtn"> >> <span
+            class="mainbtn"> Store
+            Setup</span></span></div>
+    </div>
+    <div class="grid_bg">
+      <div class="dash">
+        <table class="table table-borderless align-middle ">
+          <thead>
+            <tr>
+              <th>tracking steps</th>
+              <th>include</th>
+              <th>type</th>
+              <th>sequence<img *ngIf="sqImage1" style="height: 0.7rem;margin-left: 5px;" src="assets/images/Edit.png"
+                  title="Edit Sequences" (click)="editSequence()" />
+                <img *ngIf="sqImage2" style="height: 19px;margin-left: 2px;" src="assets/images/save.png"
+                  title="save sequences" (click)="saveSequence()" />
+                <img *ngIf="sqImage2" style="height: 19px;margin-left: 3px;" src="assets/images/clsRed.png"
+                  title="cancel" (click)="cancelSequence()" />
+              </th>
+              <th>dependencies
+              </th>
+              <th>notifications
+              </th>
+              <th>Notify In x Days
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of getStores">
+              <td>{{i.sTrackingsteps}}</td>
+              <td>
+                <div class="form-check ">
+                  <input class="form-check-input " [checked]="i.sInclude=='Y'"
+                    [disabled]="i.sTrackingsteps=='Journal Id'" type="checkbox" value="" id=""
+                    (change)="includeChnage($event,i)">
+                </div>
+              </td>
+              <td>
+                <select class="select" style="-webkit-appearance: none;color: black;" [(ngModel)]="i.sType"
+                  (change)="typeChange($event,i)">
+                  <option value="A">Automatic</option>
+                  <option value="M">Manual
+                  </option>
+                </select>
+              </td>
+              <td><input id="sqInput" type=text style="width: 70px; border-style: none;background-color: transparent;"
+                  [disabled]='toggleButton' [value]=i.sSequence (change)="changeSequence(i,$event)">
+              </td>
+              <td><select (change)="dependenciesChange($event,i)" class="form-select SELECT" aria-label=""
+                  name="dependencies">
+                  <option value=" ">None</option>
+                  <ng-container *ngFor="let j of getStores">
+                    <option *ngIf="j.sTrackingsetpId!=i.sTrackingsetpId" [value]="j.sTrackingsteps"
+                      [selected]="j.sTrackingsteps==i.sDependencies">
+                      {{j.sTrackingsteps}}
+                    </option>
+                  </ng-container>
+                </select>
+              </td>
+              <td>
+                <span *ngIf="i.sNotifications=='' ||i.sNotifications==null"> No Notifications</span>
+                <span *ngIf="i.sNotifications!=''">{{i.name}}</span>
+                <span *ngIf="nf==true && i.sTrackingsteps==rowData.sTrackingsteps">
+                  <ng-multiselect-dropdown style="border-radius: 20px;text-transform: capitalize;"
+                    [settings]="dropdownSettings" [(ngModel)]="selectedNotifications" [data]="roles"
+                    (onSelect)="onItemSelect($event,i)" (onSelectAll)="onSelectAll($event,i)"
+                    (onDeSelect)="onDeSelect($event,i)" (onDeSelectAll)="onDeSelectAll($event,i)">
+                  </ng-multiselect-dropdown>
+                </span>
+                <span> <img *ngIf="nfImage1 || i.sTrackingsteps!=rowData.sTrackingsteps"
+                    style="height: 12px;margin-left: 6px;" src="assets/images/Edit.png" title="Edit Notifications"
+                    (click)="editnotifications(i)" />
+                  <img *ngIf="nfImage2 && i.sTrackingsteps==rowData.sTrackingsteps"
+                    style="height: 19px;margin-left: 2px;" src="assets/images/save.png" title="save notifications"
+                    (click)="savenotifications()" />
+                  <img *ngIf="nfImage2 && i.sTrackingsteps==rowData.sTrackingsteps"
+                    style="height: 19px;margin-left: 3px;" src="assets/images/clsRed.png" title="cancel"
+                    (click)="cancelnotifications()" /></span>
+              </td>
+              <td><input id="notifyInput" type=text [disabled]='withinButton' style="width: 25px;"
+                  [value]=i.sWithin
+                  [ngStyle]="{'border-style':withinButton == true ? 'none' : 'groove'}"
+                  (change)="changeNotify($event)">
+                <span *ngIf="i.sWithin==1">day</span>
+                <span *ngIf="i.sWithin>1">days</span>
+                <img *ngIf="NotifyImage1" style="height: 12px;margin-left: 5px;" src="assets/images/Edit.png"
+                  title="Edit Notify" (click)="editNotify(i)" />
+                <img *ngIf="NotifyImage2 && i.sTrackingsteps==notifyRowData.sTrackingsteps"
+                  style="height: 19px;margin-left: 2px;" src="assets/images/save.png" title="save Notify"
+                  (click)="saveNotify()" />
+                <img *ngIf="NotifyImage2 && i.sTrackingsteps==notifyRowData.sTrackingsteps"
+                  style="height: 19px;margin-left: 3px;" src="assets/images/clsRed.png" title="cancel"
+                  (click)="cancelNotify()" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,422 @@
+<!-- ////////////////////////////////// REPORT PERIOD /////////////////////////////// -->
+<div *ngIf="open">
+  <div class="container-fluid d-flex justify-content-start align-items-center" style="margin-left: 12%;"
+    aria-label="Close" *ngIf="closeTotaldiv">
+    <div class="col-lg-12 position-relative">
+      <div class="row">
+        <div class="col-lg-3 col-xl-3 col-xxl-3">
+          <div class="reports-controls">
+            <div class="header">
+              <h5 class="title m-0"><img src="" alt=""> <span class="slash">//</span>REPORT CONTROLS</h5>
+              <a type="button" class="close-btn ms-auto me-2"><i class="fa-solid fa-xmark" style="color: black;"
+                  (click)="closediv()"></i> </a>
+            </div>
+            <div class="body">
+              <div class="list-group">
+
+                <a class="list-group-item list-group-item-action p-3" (click)="clickFilter('stores')">
+                  <div class="list-btn">
+                    <div class="d-flex align-items-center justify-content-center row">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/Stores.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Stores</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('status')">
+                  <div class="list-btn">
+                    <div class="d-flex align-items-center justify-content-end row">
+                      <div class="col-3"> <img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Deal Status</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('range')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center">
+                      <div class="col-3"> <img class="rpt-icon" src="../../assets/images/calendar-icon.png" alt="">
+                      </div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Deal Date</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('checked')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Complete/Incomplete</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('firstname')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">First Name</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('dealtype')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Deal Type</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('tradetype')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Trade Type</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('salesperson1')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Sales Person 1</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('salesperson2')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Sales Person 2</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('f&imanager')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">F&I Manager</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <a *ngIf="hideFilters != 'N'" class="list-group-item list-group-item-action p-3"
+                  (click)="clickFilter('salesmanager')">
+                  <div class="list-btn">
+                    <div class="row d-flex align-items-center justify-content-center ">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/status_icon2.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Sales Manager</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end">
+                        <img class="arrow-icon" src="../../assets/images/double-arrow-right.png" alt="">
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+
+
+              </div>
+            </div>
+            <div class="footer p-3 mb-2">
+              <div class="text-center d-flex align-items-center ">
+                <button type="button" class="btn btn-view mx-1" (click)="viewReport()" *ngIf="hideFilters != 'N'">View
+                  Report</button>
+                <button type="button" class="btn btn-save mx-1" (click)="clearAllData()"
+                  *ngIf="hideFilters != 'N'">Clear Filters</button>
+                <button type="button" class="btn btn-view mx-1" (click)="viewReport()" *ngIf="hideFilters == 'N'">Select
+                  Store</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ////////////////////////////////// REPORT PERIOD /////////////////////////////// -->
+
+        <div class="col-lg-4 col-xl-6 col-xxl-6" *ngIf="closeleftdiv">
+          <div class="report-period">
+            <div class="header">
+              <h5 class="title m-0"><img src="" alt="">{{selectedFilName}}</h5>
+              <a type="button" class="close-btn ms-auto me-2"><i class="fa-solid fa-xmark" style="color: black;"
+                  (click)="closediv()"></i> </a>
+            </div>
+            <div class="body px-5 py-4">
+
+              <div class="report-grid" *ngIf="filterName == 'stores'" style="margin-bottom: 1em">
+                <button type="button" class="btn report-btn" [ngClass]="{
+                'bg-color': allStoresName == 'allStores' || storesdata.length == storData.length,
+                'bg-color-none': allStoresName == ''
+              }" (click)="selectedItems('allStores')">All Stores</button>
+              </div>
+              <div class="report-grid" *ngIf="filterName == 'stores'">
+                <button type="button" class="btn report-btn" *ngFor="let x of storesdata" [ngClass]="{
+                'bg-color': storData.indexOf(x.id) >= 0,
+                'bg-color-none': storData.indexOf(x.id) < 0
+              }" (click)="selectedItems(x.id)">{{x.name}}</button>
+              </div>
+
+              <div class="report-grid" *ngIf="filterName == 'status'" style="margin-bottom: 1em">
+                <button type="button" (click)="selectedItems('A')" [ngClass]="{
+                'bg-color': allStatuses == 'A' || dealStatus.length == statusData.length,
+                'bg-color-none': allStatuses == ''
+              }" class="btn report-btn">All Deals</button>
+              </div>
+              <div class="report-grid" *ngIf="filterName == 'status'">
+                <button type="button" class="btn report-btn" *ngFor="let x of dealStatus" [ngClass]="{
+                'bg-color': statusData.indexOf(x.id) >= 0,
+                'bg-color-none': statusData.indexOf(x.id) < 0
+              }" (click)="selectedItems(x.id)">{{x.name}}</button>
+              </div>
+
+
+              <div class="report-grid" *ngIf="filterName == 'range'">
+                <label class="filter-input">Select From Date :</label>
+                <input type="date" max="{{disableDates}}" class="form-control date date1" [(ngModel)]="rangedate1"
+                  [disabled]="isVisible == true">
+                <label class="filter-input"><span style="margin-left: 17px;">Select To Date</span> :</label>
+                <input type="date" max="{{disableDates}}" class="form-control date date2" [(ngModel)]="rangedate2"
+                  [disabled]="isVisible == true">
+              </div>
+
+              <div class="report-grid" *ngIf="filterName == 'range'" style='margin-top: 20px;'>
+                <button type="button" class="btn report-btn" (click)="currentMonth('current')" [value]="true" [ngClass]="{
+              'bg-color': isVisible == true,
+              'bg-color-none': isVisible == false
+            }" [disabled]="selectedDDateData != '' && curentDateDisable == true">Current Month</button>
+
+                <button type="button" class="btn report-btn" [ngClass]="{
+              'bg-color': curentDateDisable == true,
+              'bg-color-none': curentDateDisable == false
+            }" (click)="selectedItems(rangedate1)" [disabled]="isVisible == true">Confirm Date</button>
+              </div>
+
+              <div class="report-grid" *ngIf="filterName == 'checked'" style="margin-bottom: 1em">
+                <button type="button" (click)="selectedItems('A')" [ngClass]="{
+                'bg-color': dealstatus == 'A' || totalstatus.length == dealstatusdata.length,
+                'bg-color-none': dealstatus == ''
+              }" class="btn report-btn">All</button>
+              </div>
+              <div class="report-grid" *ngIf="filterName == 'checked'">
+                <button type="button" class="btn report-btn" *ngFor="let x of totalstatus" [ngClass]="{
+                'bg-color': dealstatusdata.indexOf(x.id) >= 0,
+                'bg-color-none': dealstatusdata.indexOf(x.id) < 0
+              }" (click)="selectedItems(x.id)">{{x.name}}</button>
+              </div>
+
+              <!-- firstname -->
+              <div class="report-grid" *ngIf="filterName == 'firstname'">
+                <label class="filter-input">Enter Name :</label>
+                <input type="text" class="form-control inputField" [(ngModel)]="firstname">
+              </div>
+              <!-- tradetype -->
+              <div class="report-grid" *ngIf="filterName == 'tradetype'" style="margin-bottom: 1em">
+                <button type="button" (click)="selectedItems('A')" [ngClass]="{
+                    'bg-color': tradetypes == 'A' || tradetypedata.length == tradedata.length,
+                     'bg-color-none': tradetypes == ''
+                  }" class="btn report-btn">All</button>
+              </div>
+              <div class="report-grid" *ngIf="filterName == 'tradetype'">
+                <button type="button" class="btn report-btn" *ngFor="let x of tradetypedata" [ngClass]="{
+                    'bg-color': tradedata.indexOf(x.id) >= 0,
+                    'bg-color-none': tradedata.indexOf(x.id) < 0
+                  }" (click)="selectedItems(x.id)">{{x.name}}</button>
+              </div>
+              <!-- dealtype -->
+              <div class="report-grid" *ngIf="filterName == 'dealtype'" style="margin-bottom: 1em">
+                <button type="button" (click)="selectedItems('A')" [ngClass]="{
+                    'bg-color': dealtypes == 'A' || dealdata.length == dealtypedata.length,
+                     'bg-color-none': dealtypes == ''
+                  }" class="btn report-btn">All</button>
+              </div>
+              <div class="report-grid" *ngIf="filterName == 'dealtype'">
+                <button type="button" class="btn report-btn" *ngFor="let x of dealtypedata" [ngClass]="{
+                    'bg-color': dealdata.indexOf(x.id) >= 0  ,
+                    'bg-color-none': dealdata.indexOf(x.id) < 0
+                  }" (click)="selectedItems(x.id)">{{x.name}}</button>
+              </div>
+              <!-- salesperson1 -->
+              <div class="report-grid" *ngIf="filterName == 'salesperson1'">
+                <label class="filter-input">Enter Name :</label>
+                <input type="text" class="form-control inputField" [(ngModel)]="salesperson1">
+              </div>
+              <!-- salesperson2 -->
+              <div class="report-grid" *ngIf="filterName == 'salesperson2'">
+                <label class="filter-input">Enter Name :</label>
+                <input type="text" class="form-control inputField" [(ngModel)]="salesperson2">
+              </div>
+              <!-- f&imanager -->
+              <div class="report-grid" *ngIf="filterName == 'f&imanager'">
+                <label class="filter-input">Enter Name :</label>
+                <input type="text" class="form-control inputField" [(ngModel)]="fandimanager">
+              </div>
+              <!-- salesmanager -->
+              <div class="report-grid" *ngIf="filterName == 'salesmanager'">
+                <label class="filter-input">Enter Name :</label>
+                <input type="text" class="form-control inputField" [(ngModel)]="salesmanager">
+              </div>
+            </div>
+            <div class="footer p-3 mb-2">
+              <div class="text-center d-flex align-items-center justify-content-center">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /////////////////////////////stores selected //////////////////-->
+<div *ngIf="!open">
+  <div class="container-fluid d-flex justify-content-start align-items-center" style="margin-left: 12%;"
+    aria-label="Close" *ngIf="closeTotaldiv">
+    <div class="col-lg-12 position-relative">
+      <div class="row">
+        <div class="col-lg-3 col-xl-3 col-xxl-3">
+          <div class="reports-controls">
+            <div class="header">
+              <h5 class="title m-0"><img src="" alt=""> <span class="slash">//</span>REPORT CONTROLS</h5> <a
+                type="button" class="close-btn ms-auto me-2"><i class="fa-solid fa-xmark" style="color: black;"
+                  (click)="closediv()"></i> </a>
+            </div>
+            <div class="body">
+              <div class="list-group"> <a class="list-group-item list-group-item-action p-3"
+                  (click)="clkFilter('stores')">
+                  <div class="list-btn">
+                    <div class="d-flex align-items-center justify-content-center row">
+                      <div class="col-3"><img class="rpt-icon" src="../../assets/images/Stores.png" alt=""></div>
+                      <div class="col-6">
+                        <div class="text-start">
+                          <h6 class="m-0 p-0">Stores</h6>
+                        </div>
+                      </div>
+                      <div class="col-3 m-auto text-end"> <img class="arrow-icon"
+                          src="../../assets/images/double-arrow-right.png" alt=""> </div>
+                    </div>
+                  </div>
+                </a> </div>
+            </div>
+            <div class="footer p-3 mb-2">
+              <div class="text-center d-flex align-items-center "> <button type="button" class="btn btn-view mx-1"
+                  (click)="viewstoresetup()">View storesetup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ////////////////////////////////// REPORT PERIOD /////////////////////////////// -->
+
+        <div class="col-lg-4 col-xl-6 col-xxl-6" *ngIf="closeleftdiv">
+          <div class="report-period">
+            <div class="header">
+              <h5 class="title m-0"><img src="" alt=""></h5> <a type="button" class="close-btn ms-auto me-2"><i
+                  class="fa-solid fa-xmark" style="color: black;" (click)="closediv()"></i> </a>
+            </div>
+            <div class="body px-5 py-4">
+              <div class="report-grid" style="margin-bottom: 1em">
+                <button type="button" class="btn report-btn" [ngClass]="{
+                  'bg-color': storeid == 'stores',
+                  'bg-color-none': storeid == ''
+                }" (click)="selectedstore('stores','All Stores')">All Stores</button>
+              </div>
+              <div class="report-grid"> <button type="button" class="btn report-btn" *ngFor="let x of storesdata"
+                  [ngClass]="{
+                  'bg-color':  storeid == x.id ,
+                  'bg-color-none': storeid != x.id
+                 }" (click)="selectedstore(x.id,x.name)">{{x.name}}</button> </div>
+            </div>
+            <div class="footer p-3 mb-2">
+              <div class="text-center d-flex align-items-center justify-content-center">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

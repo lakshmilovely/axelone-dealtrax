@@ -1,0 +1,240 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+<!-- <app-header></app-header> -->
+
+<div class="container-fluid" *ngFor="let x of Ids">
+  <div class="col-12">
+    <div class="row deal">
+      <div class="sub_head"><span>//</span> Deal Progress</div>
+      <div class="col-lg-5">
+        <div class="row">
+          <div class="col-6 col6">
+            <h6 style="margin-top:2px">Deal Number: <span class="bld"> {{ x.dealno }}</span></h6>
+            <h6>Stock: <span class="bld"> {{ x.stockno }}</span></h6>
+            <h6>Store: <span class="bld" style="color:  green;"> {{ x.store }}</span></h6>
+          </div>
+          <div class="col-6">
+            <h6>Days in Queue: <span class="bld"> {{ x.dealage }}</span></h6>
+            <h6>Days in CIT: <span class="bld"
+                [ngStyle]="{color: x.totalcitcurrent=='Not Funded'? 'red':'green'}">{{x.age}}<span
+                  *ngIf="x.totalcitcurrent=='Funded'"> (Funded)</span> <span *ngIf="x.totalcitcurrent=='Not Funded'">
+                  (Not Funded)</span></span></h6>
+            <h6>Days till Temp Tag Expiry: <span class="bld" *ngIf="tagexpiredays != ''"
+                [ngStyle]="{color: tagexpiredays > 0?'':'red'}">{{tagexpiredays}}</span><span
+                *ngIf="tagexpiredays == ''">NA</span></h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="row">
+          <div class="col-4">
+            <h4> Salesperson 1: <span *ngIf="x.salesperson1 == null || x.salesperson1 == '' ">NA</span> <span
+                *ngIf="x.salesperson1 != null || x.salesperson1 != '' ">{{
+                x.salesperson1 }}</span> </h4>
+            <h4> Salesperson 2: <span *ngIf="x.salesperson2 == null || x.salesperson2 == '' ">NA</span> <span
+                *ngIf="x.salesperson2 != null || x.salesperson2 != '' ">{{
+                x.salesperson2 }}</span> </h4>
+            <h4> F&I Manager: <span>{{ x.fimgr1 }}</span> </h4>
+          </div>
+          <!-- <div class="col-3">            <h4>Desk Manager: <span>NA</span></h4>            <h4>Accounting Clerk: <span>NA</span></h4>            <h4>Title Clerk: <span>NA</span></h4>          </div> -->
+          <div class="col-4">
+            <form [formGroup]="DealForm" (ngSubmit)="SearchByDealNo()">
+              <div class="row">
+                <div class="col-8">
+                  <input type="number" class="form-control InputControl" placeholder="Deal Number"
+                    formControlName="dealnumber">
+                </div>
+                <div class="col-4">
+                  <button class="btn-search">Search</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-4">
+
+            <div class="backPage"><span (click)="deallogpage()" class="mainbtn">Deal Log</span><span class="nrmlbtn"> >>
+              <span class="mainbtn">Deal Progress</span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="item1" style="width: 260px" *ngIf="LastArray != 0">
+      <div class="row temp" style="padding-left: 2rem; padding-top: 2rem">
+        <div class="pe-1 w-250">
+          <div class="tag p-3 pb-4 item1div">
+            <h1 class="pt-2 pb-3 border-bottom"> {{ x.custFname }} {{ x.custLname }}
+            </h1>
+            <div class="pt-2">
+              <h4 class="mb-0 pb-0" style="text-transform: uppercase"> {{ x.vehicleName }}
+              </h4>
+              <div>
+
+                <h3 class="row"> <span class="col-3"> Date</span> <span class="col-2">:</span> <span class="col-6">{{
+                    x.contractdate | date : "MM.dd.yy" }}</span> </h3>
+                <h3 class="row"> <span class="col-3"> VIN</span> <span class="col-2">:</span> <span class="col-6"> {{
+                    x.vin }}</span> </h3>
+              </div>
+            </div>
+
+            <button class="danger" (click)="AllStatusComplete('Y')" *ngIf="MainStatus == 'N' ">Mark all Steps as
+              Completed</button>
+            <button class="success" (click)="AllStatusComplete('N')" *ngIf="MainStatus == 'Y' ">Deal Open</button>
+
+          </div>
+          <div class="tag gray-bg p-3 pb-4 item1div" *ngIf="TradeVisible">
+            <h1 class="pt-1 pb-2 border-bottom trade">TRADE</h1>
+            <div class="pt-2">
+              <h5 class="mt-0 pt-0"> <span>{{ x.trade1vehicledetails }}</span><span
+                  *ngIf="x.trade1vehicledetails == null">NA</span> </h5>
+              <div>
+                <h3 class="row"> <span class="col-3"> Stock</span> <span class="col-2">:</span> <span class="col-6">{{
+                    x.stockno }}</span> </h3>
+                <h3 class="row"> <span class="col-3"> VIN</span> <span class="col-2">:</span> <span class="col-6">{{
+                    x.trade1vin }}</span> </h3>
+                <h3 class="row"> <span class="col-3"> ACV</span> <span class="col-2">:</span> <span class="col-6">{{
+                    x.tradePrice | currency: 'USD':'symbol':'1.0-0' }}</span> </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chevrn-rt" *ngIf="TradeVisible"> <i class="fa-solid fa-chevron-right"></i> <i
+            class="fa-solid fa-chevron-right"></i> <i class="fa-solid fa-chevron-right"></i> </div>
+        <div class="chevrn-rt1" *ngIf="!TradeVisible"> <i class="fa-solid fa-chevron-right"></i> </div>
+      </div>
+    </div>
+
+    <div class="item2">
+      <div class="row temp" id="gridColumn">
+        <div class="ps-1 w-200" *ngFor="let a of LastArray; let index = index" data-toggle="modal"
+          data-target="#editModal" (click)="singleCartClick(a)">
+          <div class="chevrn-rt2" *ngIf="index != 0 && index != 1 && index != 2"> <i
+              class="fa-solid fa-chevron-right"></i> </div>
+          <div class="tag p-3 mb-2 myCart" [style.background-color]="a.clr">
+            <h6 class="pb-0">{{ a.MHead }}</h6>
+            <div *ngFor="let b of a.SHead; let i = index">
+              <h3 class="row">
+                <span *ngIf="b != ''" class="col-4" style="align-items: start;"> {{ b }}</span>
+                <span class="col-2">
+                  :
+                </span> <span *ngIf="typeOf(a.data[i]) === 'string'" class="col-6" style="align-items: start;">{{ item
+                  }}</span>
+                <span *ngIf="typeOf(a.data[i]) === 'number'" [ngStyle]="{color: a.data[i] < 0? 'red':''}" class="col-6"
+                  style="align-items: start;">{{ item | currency: 'USD':'symbol':'1.0-0'}}</span>
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+
+  <div class="mybar1">
+    <!-- <i class="fa-solid fa-chevron-right" *ngIf="(i%1) !=0"></i> -->
+    <div class="sdate">
+      <!-- {{startDate | date : 'MM.dd.yy'}} -->
+      <img title="Deal Starting Date" src="{{blueDot}}">
+      <div class="cstm-blue-btn">
+        <div class="shape3"></div>
+        <div class="shape2" title="Deal Starting Date"></div>
+        <div class="shape1" title="Deal Starting Date">
+          {{startDate | date : 'MM.dd.yy'}}
+        </div>
+      </div>
+    </div>
+    <div class="ddate" *ngFor="let dates of FinalDates; let i = index;">
+      <div class="notesSet"><img title="{{dates.name}}" src="{{dates.imgUrl}}"
+          *ngIf="dates.status == 'expire' || dates.status == 'viaNote'">
+        <div class="shape3"></div>
+        <div class="cstm-red-notes" *ngIf="dates.status == 'expire' || dates.status == 'viaNote'">
+          <div class="shape1" *ngIf="dates.status == 'expire'"></div>
+          <div class="shape4" *ngIf="dates.status == 'viaNote'"></div> <img title="{{dates.name}}"
+            src="{{dates.noteImg}}" data-toggle="modal" data-target="#editModal" (click)="addpop(dates.name)">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Single Cart Edit -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="height: auto;">
+      <div class="modal-body">
+        <div class="add_sett">
+          <div class="header d-flex align-items-center">
+            <h5 class="m-0 ms-2">
+              <span class="slash">//</span>{{selectedTrackingStep}}
+            </h5>
+            <a type="button" class="ms-auto me-2"><img src="../../assets/images/cls.png" data-dismiss="modal" alt="">
+            </a>
+          </div>
+          <div class="cont d-flex flex-column align-items-center justify-content-center">
+            <div class="container-fluid">
+              <form [formGroup]="stepsForm" (ngSubmit)="saveData()">
+                <div class="row mb-3">
+                  <div class="col-12" *ngIf="inputsdata.length <= 3">
+                    <div class="form-group set" formArrayName="inputsdata"
+                      *ngFor="let x of inputsdata.controls; let i = index;">
+                      <label>{{splitColumnName[i]}}</label>
+                      <input type="date" class="form-control" [formControlName]="i "
+                        *ngIf="splitColumnName[i] == 'Date' || splitColumnName[i]== 'Expiration'">
+
+                      <input type="text" class="form-control" [formControlName]="i"
+                        *ngIf="splitColumnName[i] != 'Date' && splitColumnName[i] != 'Expiration'">
+
+                    </div>
+                  </div>
+                  <div class="col-12" *ngIf="inputsdata.length > 3" [ngStyle]="getStyleS()">
+                    <div class="form-group set" formArrayName="inputsdata"
+                      *ngFor="let x of inputsdata.controls; let i = index;">
+                      <label>{{splitColumnName[i]}}</label>
+                      <input type="date" class="form-control" [formControlName]="i"
+                        *ngIf="splitColumnName[i] == 'Date' || splitColumnName[i]== 'Expiration'">
+                      <input type="text" class="form-control" [formControlName]="i"
+                        *ngIf="splitColumnName[i] != 'Date' && splitColumnName[i] != 'Expiration'">
+                    </div>
+                  </div>
+
+                  <div class="form-group set">
+                    <div class="textar">
+                      <label>Notes</label>
+                      <textarea class="form-control text-area modaltext" id="exampleFormControlTextarea1" rows="6"
+                        placeholder="Add Action Description..." formControlName="textarea"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group set">
+                    <span style="display: flex;">
+                      <input type="checkbox" [(ngModel)]="markCheck" [ngModelOptions]="{standalone: true}"
+                        [checked]="MainStatus == 'Y' || stepStatus=='Y'" (change)="checkSelect($event)"
+                        [disabled]="MainStatus == 'Y'">
+                      <label style="padding-left:0.2rem;margin-top:5px">Mark Step as Completed</label>
+                    </span>
+                  </div>
+                  <div class="row" style="margin-top: 15px;">
+                    <div class="col-12 d-flex justify-content-center">
+                      <button class="btn sub_btn me-2" type="submit" name="submit" [disabled]="MainStatus == 'Y'">Save
+                      </button>
+
+                      <div class="btn can_btn ms-2" type="button" data-dismiss="modal" #closemd>
+                        Cancel
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

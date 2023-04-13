@@ -1,0 +1,324 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
+<app-header></app-header>
+<div class="container-fluid mt-4">
+  <div class="col-lg-12 mx-auto px-4">
+    <div class="d-flex justify-content-between align-items-baseline">
+      <div class="sub_head"><span>//</span>Users</div>
+      <input type="text" class="col-lg-3" placeholder="Search" style="margin-left:30%; border-radius: 1rem; text-align: center;"
+        [(ngModel)]="searchText">
+      <button class="btn ms-auto" data-toggle="modal" data-target="#exampleModal" (click)="adduser()">Add</button>
+    </div>
+    <div class="grid_bg">
+      <div class="dash">
+        <table class="table table-borderless align-middle">
+          <thead>
+            <tr>
+              <th>UserName</th>
+              <th>DisplayName</th>
+              <th>Stores</th>
+              <th>Title</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of view | search: searchText">
+              <!-- <td>{{x.asDealername}}</td> -->
+              <td>{{u.username}}</td>
+              <td>{{u.displayname}}</td>
+              <td>
+
+                <select style="width: 222px;">
+
+                  <option *ngFor="let item of u.name">{{item}}</option>
+
+                </select>
+
+              </td>
+              <td>{{u.title}}</td>
+              <td>{{u.uEmail}}</td>
+              <td>{{u.uActive}}</td>
+
+              <td><img src="assets/images/Edit.png" class="img-fluid" alt="" data-toggle="modal"
+                  data-target="#exampleModal"
+                  *ngIf="(Usertitle=='super admin' || Usertitle=='system'|| u.username==Username); else elseBlock"
+                  (click)="EditClick(u)" id="img">
+              </td>
+
+              <ng-template #elseBlock>
+                <input type="image" src="assets/images/Edit.png" data-toggle="modal" (click)="alrt()">
+              </ng-template>
+
+              <td><img src="assets/images/Delete.png" class="img-fluid" alt=""
+                  *ngIf="(Usertitle=='super admin' || Usertitle=='system'|| u.username==Username); else elseBlock1"
+                  (click)="DeleteUser(u)" id="img"></td>
+
+              <ng-template #elseBlock1>
+                <input type="image" src="assets/images/Delete.png" data-toggle="modal" (click)="alrt()">
+              </ng-template>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- form -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body" >
+        <div class="add_sett" >
+          <div class="header d-flex align-items-center">
+            <h5 class="m-0 ms-2">
+              <img src="" alt=""> <span class="slash">//</span>Users
+            </h5>
+            <a type="button" class="ms-auto me-2"><img src="../../assets/images/cls.png" data-dismiss="modal" alt=""
+                (click)="cancelbtn()">
+            </a>
+          </div>
+          <div class="cont d-flex flex-column align-items-center justify-content-center" style="height: 598px; overflow: auto;">
+            <div class="container-fluid">
+              <form [formGroup]="userForm" autocomplete="off">
+
+                <div class="row mb-3 ">
+                  <div class="col-12">
+                    <div class=" form-group set">
+                      <label>User Name:</label>
+                      <input type="text" class="form-control" formControlName="UserName">
+                      <div
+                        *ngIf="userForm.controls['UserName'].invalid && ( userForm.controls['UserName'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['UserName'].errors?.['required']" style="color: red">*Username
+                          required.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class=" form-group set">
+                      <label>DisplayName:</label>
+                      <input type="text" class="form-control" formControlName="DName" autocomplete="false">
+                      <div
+                        *ngIf="userForm.controls['DName'].invalid && ( userForm.controls['DName'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['DName'].errors?.['required']" style="color: red">*Displayname
+                          required.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3 " *ngIf="passHide">
+                  <div class="col-6">
+                    <div class=" form-group set">
+                      <label>Password:</label>
+                      <input type="password" class="form-control" formControlName="Password" autocomplete="false">
+                      <div
+                        *ngIf="userForm.controls['Password'].invalid && ( userForm.controls['Password'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['Password'].errors?.['required']" style="color: red">*Password
+                          required.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6" *ngIf="passHide">
+                    <div class=" form-group set">
+                      <label>Confirm Password:</label>
+                      <input type="password" class="form-control" formControlName="confirmpass">
+                      <div
+                        *ngIf="userForm.controls['confirmpass'].invalid && ( userForm.controls['confirmpass'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['confirmpass'].errors?.['required']" style="color: red">
+                          *Confirmpass required.</div>
+                        <div *ngIf="userForm.controls['confirmpass'].errors?.['confirmedValidator']"
+                          style="color: red;">*Password MissMatch.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class="form-group set">
+                      <label>Stores:</label>
+
+                      <div class="d-flex align-items-baseline" id="addInput" formArrayName="stores"
+                        *ngFor="let a of stores.controls; let i=index">
+                        <select class="form-select" [formControlName]="i" (change)="changeEvent($event)">
+                          <option *ngFor="let z of drowpdown" value="{{z.asCoraAcctId}}">{{z.asLegalentityName}}
+                          </option>
+                        </select>
+
+                        <span (click)="Inputremove(i)" style="cursor: pointer;">Remove</span>
+                      </div>
+
+                      <h6 class="m-0 ps-3"><span (click)="Inputadd()" style="cursor: pointer;"><i
+                            class="fa-solid fa-circle-plus"></i>Add Stores</span></h6>
+
+                      <div *ngIf="userForm.controls['stores'].invalid &&  FormSubmitted">
+                        <div *ngIf="userForm.controls['stores'].errors?.['required']" style="color: red">*Stores
+                          required.</div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class=" form-group set">
+                      <label for="">Role:</label>
+
+                      <select class="form-select" aria-label="" formControlName="RoleId" (change)="change($event)" style="    text-transform: capitalize;">
+                        <option *ngFor="let a of allroles" value="{{a.rId}}">{{a.rName}}</option>
+
+                      </select>
+                      <div
+                        *ngIf="userForm.controls['RoleId'].invalid && ( userForm.controls['RoleId'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['RoleId'].errors?.['required']" style="color: red">*RoleId
+                          required.</div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class=" form-group set">
+                      <label for="">Status:</label>
+                      <select class="form-select" aria-label="" formControlName="Status" (change)="change2($event)">
+
+                        <option value="Y">Active</option>
+                        <option value="N">InActive</option>
+
+                      </select>
+                      <div
+                        *ngIf="userForm.controls['Status'].invalid && ( userForm.controls['Status'].touched || FormSubmitted) ">
+                        <div *ngIf="userForm.controls['Status'].errors?.['required']" style="color: red">*Status
+                          required.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <div class="col-12 ">
+                    <div class=" form-group set">
+                      <label for="">Email:</label>
+                      <input type="name" class="form-control" formControlName="Email">
+                      <div
+                        *ngIf="userForm.controls['Email'].invalid && ( userForm.controls['Email'].touched || FormSubmitted)  ">
+                        <div *ngIf="userForm.controls['Email'].errors?.['required']" style="color: red">*Email
+                          required.
+                        </div>
+                        <div *ngIf="userForm.controls['Email'].errors?.['pattern']" style="color: red">*Email Format
+                          required.</div>
+                      </div>
+                      <!-- <div *ngIf="userForm.controls['Email'].errors?.['email']" style="color: red">*Enter Proper Email.</div> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center">
+                    <button *ngIf="add12==true" class="btn sub_btn me-2" type="button" data-dismiss="modal"
+                      (click)="AddUser()" [disabled]="userForm.invalid">Submit</button>
+                    <div *ngIf="save==true" class="btn sub_btn me-2" type="button" (click)="UpdateUser(datausers.uId)"
+                      data-dismiss="modal">Save</div>
+                    <div *ngIf="resetpass==true" class="btn sub_btn me-2" type="button" data-toggle="modal"
+                      data-target="#resetModal" data-dismiss="modal">ResetPassword</div>
+                    <div class="btn can_btn ms-2" type="button" data-dismiss="modal" (click)="cancelbtn()">Cancel
+                    </div>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ResetPassword model -->
+
+<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="add_sett">
+          <div class="header d-flex align-items-center">
+            <h5 class="m-0 ms-2">
+              <img src="" alt=""> <span class="slash">//</span>Users
+            </h5>
+            <a type="button" class="ms-auto me-2"><img src="../../assets/images/cls.png" data-dismiss="modal" alt=""
+                (click)="cancelbtn()">
+            </a>
+          </div>
+          <div class="cont d-flex flex-column align-items-center justify-content-center">
+            <div class="container-fluid">
+              <form [formGroup]="userForm">
+                <div class="row mb-3 ">
+                  <div class="col-12">
+                    <div class=" form-group set">
+                      <label>UserName</label>
+                      <input type="text" class="form-control" readonly="readonly"  placeholder="" formControlName="UserName">
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3 ">
+                  <div class="col-6">
+                    <div class=" form-group set">
+                      <label>Password</label>
+                      <input type="password" class="form-control" placeholder="" formControlName="Password">
+                      <div
+                        *ngIf="userForm.controls['Password'].invalid && ( userForm.controls['Password'].touched || FormSubmitted)">
+                        <div *ngIf="userForm.controls['Password'].errors?.['required']" style="color: red">*Password
+                          required.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class=" form-group set">
+                      <label>Conform Password</label>
+                      <input type="password" class="form-control" placeholder="" formControlName="confirmpass">
+                      <div
+                        *ngIf="userForm.controls['confirmpass'].invalid && ( userForm.controls['confirmpass'].touched || FormSubmitted)">
+                        <div *ngIf="userForm.controls['confirmpass'].errors?.['required']" style="color: red">
+                          *Confirmpass required.</div>
+                        <div *ngIf="userForm.controls['confirmpass'].errors?.['confirmedValidator']"
+                          style="color: red;">*Password MissMatch.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center">
+                    <button class="btn sub_btn me-2" type="button" (click)="updatepassword(datausers.uId)"
+                      data-dismiss="modal" [disabled]="userForm.invalid">Submit</button>
+                    <div></div>
+                    <div class="btn can_btn ms-2" type="button" data-dismiss="modal" (click)="cancelbtn()">Cancel</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

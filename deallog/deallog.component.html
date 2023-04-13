@@ -1,0 +1,263 @@
+<!-- <app-header></app-header> -->
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+
+
+<div class="container-fluid mt-4" style="margin-top: -1rem !important">
+  <div class="col-lg-12 mx-auto px-4">
+    <div class="d-flex justify-content-between align-items-baseline row">
+      <div class="col-4">
+        <div class="sub_head ">
+          <span>//</span> Deal Log <span *ngIf="DealData2.length!=0" class="count">: {{DealData2.length}} of {{RecCount}}
+            Deals</span>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <form [formGroup]="DealForm" (ngSubmit)="SearchByDealNo()">
+          <div class="row">
+            <div class="col-8">
+              <input type="number" class="form-control InputControl" placeholder="Deal Number"
+                formControlName="dealnumber">
+            </div>
+            <div class="col-4">
+              <button class="btn-search">Search</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-2">
+        <button type="button" class="btn btn-secondary" (click)="clearsearch()" *ngIf="searchvalue==true"
+          style="background-color:#919191;margin-left:-25px;">ClearSearch</button>
+      </div>
+      <div class="col-2">
+        <div class="pages" *ngIf="UpdatedTime != '' ">@Updated at {{UpdatedTime}}</div>
+      </div>
+    </div>
+    <div class="grid_bg">
+      <div #dealogDiv class="deallog" style="overflow: scroll" infiniteScroll [infiniteScrollDistance]="0"
+        [infiniteScrollThrottle]="200" (scrolled)="onScroll()" [scrollWindow]="false" [alwaysCallback]="true"
+        [ngStyle]="{'overflow-y':DealData2.length < 0 ? 'none':''}">
+        <table id="deallogTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th></th>
+              <!-- <th></th> -->
+              <th></th>
+              <th></th>
+              <th></th>
+              <th colspan="3">Customer</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <!-- <th></th>
+              <th></th> -->
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th *ngFor="let x of allData" [attr.colspan]="x.colSpValue">
+                {{ x.Data.sTrackingsteps }}
+              </th>
+              <!-- <th></th> -->
+            </tr>
+            <tr>
+              <th>Action</th>
+              <th>Messages</th>
+              <th style="cursor: pointer;" (click)="Sortfun('dealage')">CIT<br />Age</th>
+              <th style="cursor: pointer;" (click)="Sortfun('contractdate')">Deal Date</th>
+              <th style="cursor: pointer;" (click)="Sortfun('dealno')"> Deal #</th>
+              <th style="cursor: pointer;" (click)="Sortfun('custFname')">First Name</th>
+              <th style="cursor: pointer;" (click)="Sortfun('custLname')">Last Name</th>
+              <th style="cursor: pointer;" (click)="Sortfun('customerstate')">Customer <br /> State</th>
+              <th style="cursor: pointer;" (click)="Sortfun('stockno')">Stock #</th>
+              <th style="cursor: pointer;" (click)="Sortfun('dealstatus')">Deal Status</th>
+              <th style="cursor: pointer;" (click)="Sortfun('store')"> Store</th>
+              <th style="cursor: pointer;" (click)="Sortfun('dealstate')">Dealer <br />State</th>
+              <th style="cursor: pointer;" (click)="Sortfun('dealtype')"> New/Used</th>
+              <th style="cursor: pointer;" (click)="Sortfun('price')">Price</th>
+              <th style="cursor: pointer;" (click)="Sortfun('trade')">Trade</th>
+              <th style="cursor: pointer;" (click)="Sortfun('tradePrice')">Trade<br />Price</th>
+              <th style="cursor: pointer;" (click)="Sortfun('salesperson1')"> Salesperson 1</th>
+              <th style="cursor: pointer;" (click)="Sortfun('salesperson2')"> Salesperson 2</th>
+              <th style="cursor: pointer;" (click)="Sortfun('fimgr1')">F&I Manager</th>
+              <th style="cursor: pointer;" (click)="Sortfun('salesmgr')">Sales Manager</th>
+              <th *ngFor="let x of splitInternals">
+                {{ x }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let D of DealData2 | filter : topFilteredData" style="cursor: pointer"
+              onmouseenter="this.style.backgroundColor='#d9e3f2'" onmouseleave="this.style.backgroundColor=''">
+              <td style="background-color: #d9e3f2">
+                <img *ngIf="D.details.taskStatus != 'N'" src="../assets/images/create_act_icon.png" alt=""
+                  style="cursor: pointer"
+                  (click)="addAction(D.details.dealno, D.details.taskStatus,D.details.asId,D.details.store)" />
+                <img *ngIf="D.details.taskStatus == 'N'" src="../assets/images/create_act_icon.png" alt=""
+                  style="cursor: pointer; opacity: 0.5"
+                  (click)="addAction(D.details.dealno, D.details.taskStatus,D.details.asId,D.details.store)" />
+              </td>
+              <td style="background-color: #d9e3f2; text-align: center">
+                <img src="../assets/images/chat_blu.png" alt="" style="cursor: pointer" class="img-fluid"
+                  data-toggle="modal" data-target="#deallogModal1" (click)="messagePage()" />
+              </td>
+
+              <td style="background-color: #d9e3f2; text-align: center"
+                (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.dealage }}
+              </td>
+
+              <td *ngIf="D.details.dealage == null" style="background-color: #d9e3f2; text-align: center"
+                (click)="PushDealId(D.details.dealno, D.details.asId)">
+                --
+              </td>
+              <td style="background-color: #d9e3f2" (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.contractdate | date : "MM.dd.YY" }}
+              </td>
+              <td style="background-color: #d9e3f2" (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.dealno }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                <div style="
+                    text-align: left;
+                    max-width: 60px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  ">
+                  {{ D.details.custFname }}
+                </div>
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                <div *ngIf="D.details.custLname == null" style="
+                    text-align: left;
+
+                    max-width: 60px;
+
+                    overflow: hidden;
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                  ">
+                  --
+                </div>
+
+                <div *ngIf="D.details.custLname != null" style="
+                    text-align: left;
+
+                    max-width: 60px;
+
+                    overflow: hidden;
+
+                    text-overflow: ellipsis;
+
+                    white-space: nowrap;
+                  ">
+                  {{ D.details.custLname }}
+                </div>
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                <div style="
+                    text-align: center;
+                    max-width: 40px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  ">
+                  {{ D.details.customerstate }}
+                </div>
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.stockno }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" *ngIf="D.details.dealstatus == 'F'">
+                Finalized
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" *ngIf="D.details.dealstatus == 'B'">
+                Booked
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" *ngIf="D.details.dealstatus == 'D'">
+                Delivered
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" *ngIf="D.details.dealstatus == 'P'">
+                Pending
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.store }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                <div style="
+                    text-align: center;
+                    max-width: 35px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                  ">
+                  {{ D.details.dealstate }}
+                </div>
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                <div>{{ D.details.dealtype }}</div>
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" style="text-align: right !important">
+                {{ D.details.price | currency : "USD" : "symbol" : "1.0-0" }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.trade }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" style="text-align: right !important"
+                *ngIf="D.details.tradePrice != 0">
+                {{
+                D.details.tradePrice | currency : "USD" : "symbol" : "1.0-0"
+                }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)" style="text-align: center !important"
+                *ngIf="D.details.tradePrice == 0">
+                --
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.salesperson1 }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.salesperson2 }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.fimgr1 }}
+              </td>
+              <td (click)="PushDealId(D.details.dealno, D.details.asId)">
+                {{ D.details.salesmgr }}
+              </td>
+              <td *ngFor="let item of D.cdata; let i = index" [style.border-right]="D.sline[i]"
+                (click)="PushDealId(D.details.dealno, D.details.asId)">
+
+                <div *ngIf="typeOf(item) === 'string' && item != '--'" style="text-align: center !important"
+                  [ngStyle]="{ color: item == 'Not Funded' ? 'red' : '' }">
+                  {{ xData }}
+                </div>
+                <div *ngIf="typeOf(item) === 'string' && item == '--'" style="text-align: right !important"
+                  [ngStyle]="{ color: item == 'Not Funded' ? 'red' : '' }">
+                  {{ xData }}
+                </div>
+                <div *ngIf="typeOf(item) === 'number'" style="text-align: right !important"
+                  [ngStyle]="{ color: item < 0 ? 'red' : '' }">
+                  {{ xData | currency : "USD" : "symbol" : "1.0-0" }}
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div *ngIf="noRec==true" style="text-align:center"><span style="color:crimson;">
+        <b>No Deals Available.</b></span></div>
+  </div>
+</div>

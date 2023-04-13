@@ -1,0 +1,149 @@
+<!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner> -->
+<header class="navbar sticky-top bg-white flex-md-nowrap p-0">
+  <div class="ms-2">
+    <button class="navbar-toggler-icon" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasmenu"
+      aria-controls="offcanvasmenu" (click)="navbar()">
+      <!-- <span class="navbar-toggler-icon" (click)="navbar()"></span> -->
+    </button>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasmenu" data-bs-keyboard="false"
+      aria-labelledby="offcanvasmenuLabel" data-bs-backdrop="offcanvas">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <h6 class="offcanvas-title d-sm-block mx-auto" id="offcanvasmenu">
+          <img src="../../assets/images/west_logo.png" class="img-fluid" />
+        </h6>
+      </div>
+      <div class="offcanvas-body px-0">
+        <nav id="sidebar">
+          <ul class="list-unstyled components">
+            <li><a data-toggle="collapse" aria-expanded="false" data-bs-dismiss="offcanvas" aria-label="Close" (click)="deallogpage()">Deal Log</a></li>
+            <li><a data-toggle="collapse" aria-expanded="false" (click)="openstore()" data-bs-dismiss="offcanvas" aria-label="Close" >Deal Log
+                Setup</a> </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <a class="navbar-brand ms-lg-3" (click)="deallogpage()"><img src="assets/images/west_logo.png" class="img-fluid"
+       /></a>
+  <img src="../../assets/images/Filter.png" alt="" style="margin-left: 1rem; cursor: pointer" *ngIf="filterclose != 'N'"
+    (click)="openFilter()" />
+  <a *ngIf="activefilters !='N'" class="btn   report-btn1 mx-3" data-bs-toggle="modal"
+    data-bs-target="#activeFiltersModal" style="font-family: 'RobotoCondensed-Regular';font-size:0.9rem" (click)="activeModal()" >Active
+    Filters :  {{totalCount}} </a>
+  <div class="d-lg-flex justify-content-end ms-lg-auto me-lg-4">
+    <div class="heading mt-lg-0 mt-3 d-flex justify-content-end align-items-center">
+      <div class="icons me-auto">
+        <img src="assets/images/Action.png" class="img-fluid" alt="" (click)="tasqclick()" />
+        <div>
+          <img src="assets/images/Chat.png" class="img-fluid" alt="" (click)="msgclick()" />
+          <span class="count" *ngIf="count != 0">{{ count }}</span>
+        </div>
+        <img src="assets/images/settings.png" class="img-fluid pe-3" alt="" (click)="opensettings()" />
+      </div>
+    </div>
+  </div>
+  <div class="d-flex align-items-center mx-auto mx-lg-0 pe-lg-4 py-2 py-lg-0">
+    <div class="prof">
+      <div class="text">
+        <div class="grt">Welcome</div>
+        <div class="name" >
+          {{ Username }}, <span>{{ Usertitle }}</span>
+        </div>
+      </div>
+    </div>
+    <div><img src="../../assets/images/trax_logo.png" class="img-fluid" /></div>
+  </div>
+  <div class="popover__wrapper">
+    <img src="../../assets/images/logout_icon.png" class="img-fluid" style="cursor: pointer;display:none"
+      (click)="logout()" />
+  </div>
+
+</header>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="activeFiltersModal" tabindex="-1" aria-labelledby="actionmoduleLabel" aria-hidden="true">
+  <div class="modal-dialog" style="background-color: white !important;border-radius: 10px;">
+    <div class="modal-content" style="font-family: RobotoCondensed-Regular;">
+      <div class="modal-header">
+        <h6 style="font-family: RobotoCondensed-Bold; ">Active Filters : {{totalCount}}</h6>
+      </div>
+      <div class="modal-body" style="font-size: 0.8rem; ">
+        <div class="col-lg-12 position-relative">
+          <table class="table table-white">
+            <tbody>
+              <tr>
+                <th scope="row">Stores</th>
+                <td *ngIf="storenames!=''">{{storenames}}</td>
+                <td *ngIf="storenames==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Deal Status</th>
+                <td *ngIf="dealstatus!=''">{{dealstatus}}</td>
+                <td *ngIf="dealstatus==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Deal Date</th>
+                <td *ngIf="dateFilters!=''">{{dateFilters}}</td>
+                <td *ngIf="dateFilters==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Status</th>
+                <td *ngIf="status!=''">{{status}}</td>
+                <td *ngIf="status==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">First Name</th>
+                <td *ngIf="firstname!=''">{{firstname}}</td>
+                <td *ngIf="firstname==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Deal Type</th>
+                <td *ngIf="dealType!=''">{{dealType}}</td>
+                <td *ngIf="dealType==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Trade Type</th>
+                <td *ngIf="tradeType!=''">{{tradeType}}</td>
+                <td *ngIf="tradeType==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Sales Person1</th>
+                <td *ngIf="salesPerson1!=''">{{salesPerson1}}</td>
+                <td *ngIf="salesPerson1==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Sales Person 2</th>
+                <td *ngIf="salesPerson2!=''">{{salesPerson2}}</td>
+                <td *ngIf="salesPerson2==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">F&I Manager</th>
+                <td *ngIf="fandImanager!=''">{{fandImanager}}</td>
+                <td *ngIf="fandImanager==''">NA</td>
+              </tr>
+              <tr>
+                <th scope="row">Sales Manager</th>
+                <td *ngIf="salesManager!=''">{{salesManager}}</td>
+                <td *ngIf="salesManager==''">NA</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer" style="border: none;">
+        <div class="row">
+          <button type="button" class="btn btn-primary mx-1" *ngIf="activeref==true" (click)="saveChanges()">Reset
+            Filters</button>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn-danger " #closebutton style="color:whitesmoke;font-size:0.9rem"
+            data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

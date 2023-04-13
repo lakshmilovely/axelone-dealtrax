@@ -1,0 +1,209 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white">Loading...</p>
+</ngx-spinner>
+<!-- <app-header></app-header> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css" />
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+<div class="container-fluid mt-4">
+  <div class="col-lg-12 mx-auto px-4">
+    <div class="d-flex justify-content-between align-items-baseline" style="width: 25%">
+      <div class="backPage"><span (click)="deallogpage()" class="mainbtn">Deal Log</span><span class="nrmlbtn"> >>
+        <span class="mainbtn"> Settings</span></span></div>
+    </div>
+    <div class="d-flex justify-content-between align-items-baseline">
+      <div class="sub_head"><span>//</span> settings</div>
+      <button data-toggle="modal" data-target="#exampleModal" (click)="add()" class="btn ms-auto">
+        Add
+      </button>
+    </div>
+    <div class="grid_bg">
+      <div class="dash">
+        <table class="table table-borderless align-middle">
+          <thead>
+            <tr>
+              <th>tracking steps</th>
+              <th>Sequence</th>
+              <th>dependencies</th>
+              <th>notifications</th>
+              <th>Notify In</th>
+              <th>type</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of settingData">
+              <td>{{ i.sTrackingsteps }}</td>
+              <td>{{ i.sSequence }}</td>
+              <td>{{ i.sDependencies }}</td>
+              <td>{{ i.name }}</td>
+              <td *ngIf="i.sWithin > 0">
+                {{ i.sWithin }}<span *ngIf="i.sWithin == 1"> day</span><span *ngIf="i.sWithin > 1"> days</span>
+              </td>
+              <td *ngIf="i.sWithin == 0">-</td>
+              <td *ngIf="i.sType == 'A'">Automatic</td>
+              <td *ngIf="i.sType == 'M'">Manual</td>
+              <td *ngIf="i.sStatus == 'Y'">Active</td>
+              <td *ngIf="i.sStatus == 'N'">In Active</td>
+              <td>
+                <input type="image" src="assets/images/Edit.png" data-toggle="modal" (click)="edit(i)"
+                  data-target="#exampleModal" />
+              </td>
+              <td><img src="assets/images/Delete.png" class="img-fluid" alt="" (click)="DeleteRow(i)" id="img"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="add_sett">
+          <div class="header d-flex align-items-center">
+            <h5 class="m-0 ms-2">
+              <img src="" alt="" /> <span class="slash">//</span>Settings
+            </h5>
+            <a type="button" class="ms-auto me-2"><img src="../../assets/images/cls.png" data-dismiss="modal" alt=""
+                (click)="closeform()" />
+            </a>
+          </div>
+          <div class="cont d-flex flex-column align-items-center justify-content-center">
+            <div class="container-fluid">
+              <form [formGroup]="settingForm" (ngSubmit)="addSetting()">
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class="form-group set">
+                      <label>Tracking Steps:</label>
+                      <input type="name" class="form-control" name="trackingSteps" formControlName="trackingSteps" />
+                      <div *ngIf="
+                          settingForm.controls['trackingSteps'].invalid && (settingForm.controls['trackingSteps'].touched || formSubmitted)
+                        " class="">
+                        <div *ngIf="settingForm.controls['trackingSteps'].errors?.['required']"
+                          style="color: rgb(219, 22, 22); font-size: xx-small">
+                          *trackingSteps Is Required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class="form-group set">
+                      <label>Sequence:</label>
+                      <input type="number" class="form-control" name="sequence" formControlName="sequence" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-10">
+                    <div class="form-group set">
+                      <label>Tracking Steps Column:</label>
+                      <div class="d-flex align-items-baseline" formArrayName="internalSteps" *ngFor="
+                          let input of internalSteps.controls;
+                          let i = index
+                        ">
+                        <input type="text" class="form-control" [formControlName]="i" />
+                        <span (click)="Inputremove(i)">Remove</span>
+                      </div>
+                      <h6 class="m-0 ps-3">
+                        <span (click)="Inputadd()"><i class="fa-solid fa-circle-plus"></i>Add Tracking
+                          Steps Column</span>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group set">
+                    <label>Dependencies:</label>
+                    <select class="form-select" aria-label="" name="notifications" formControlName="dependencies">
+                      <option [selected]="editdata?.sDependencies==''" value="N">
+                        None
+                      </option>
+                      <option *ngFor="let i of settingData" [value]="i.sTrackingsteps">
+                        {{ i.sTrackingsteps }}
+                      </option>
+                    </select>
+                    <div *ngIf="
+                        settingForm.controls['dependencies'].invalid && (settingForm.controls['dependencies'].touched || formSubmitted)
+                      " class="">
+                      <div *ngIf="settingForm.controls['dependencies'].errors?.['required']"
+                        style="color: rgb(219, 22, 22); font-size: xx-small">
+                        *dependencies Is Required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-12">
+                    <div class="form-group set">
+                      <label for="">Notifications:</label>
+                      <ng-multiselect-dropdown
+                        style="border-radius: 20px; text-transform: capitalize;font-family: 'RobotoCondensed-Regular';font-size: 0.7rem;"
+                        [settings]="dropdownSettings" [data]="roles" formControlName="notifications"
+                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-4">
+                    <div class="form-group set">
+                      <label>Within:</label>
+                      <input type="number" class="form-control" name="within" formControlName="within" />
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group set">
+                      <label for="">Type:</label>
+                      <select class="form-select" aria-label="" name="type" formControlName="type">
+                        <option value="A">Automatic</option>
+                        <option value="M">Manual</option>
+                      </select>
+                      <div *ngIf="
+                          settingForm.controls['type'].invalid && (settingForm.controls['type'].touched || formSubmitted)
+                        " class="">
+                        <div *ngIf="settingForm.controls['type'].errors?.['required']"
+                          style="color: rgb(219, 22, 22); font-size: x-small">
+                          *type Is Required
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="form-group set">
+                      <label for="status">Status:</label>
+                      <select class="form-select" aria-label="" id="status" name="status" formControlName="status">
+                        <option selected value="Y">Active</option>
+                        <option value="N">In Active</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-center">
+                    <button *ngIf="submit" class="btn sub_btn me-2" type="submit" name="submit">
+                      Submit
+                    </button>
+                    <button *ngIf="save" class="btn sub_btn me-2" type="submit" name="submit">
+                      Save changes
+                    </button>
+                    <div class="btn can_btn ms-2" type="button" data-dismiss="modal" (click)="closeform()" #closebutton>
+                      Cancel
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

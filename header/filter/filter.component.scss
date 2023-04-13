@@ -1,0 +1,838 @@
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
+
+
+.reports-controls {
+  height: 73vh;
+  position: absolute;
+  left: 20px;
+  z-index: 999;
+  width: inherit;
+  box-shadow: 13px 0px 24px 0px rgba(0, 0, 0, 0.1);
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.7rem 1rem;
+    text-align: center;
+
+    .title {
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.9rem;
+      color: #000;
+      line-height: 3rem;
+      text-transform: uppercase;
+
+      .slash {
+        color: #ef5f23;
+        padding-right: 5px;
+      }
+    }
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 60vh;
+    overflow: auto;
+
+    .list-group-item {
+      border-bottom: none;
+      border-top: 2px solid rgba(238, 236, 236, 0.568);
+
+      .rpt-icon {
+        width: 28px;
+        float: right;
+      }
+
+      .list-btn {
+        .fa-icon {
+          color: #a4a8ab;
+          font-size: 1.3rem;
+        }
+
+        .fa-angles-right {
+          color: #a4a8ab;
+          font-size: 0.9rem;
+        }
+
+        .arrow-icon {
+          width: 20px;
+        }
+
+        h6 {
+          color: #ef5f23;
+          font-family: 'RobotoCondensed-Bold';
+          font-size: 0.7rem;
+        }
+
+        p {
+          font-family: 'RobotoCondensed-Regular';
+          font-size: 0.6rem;
+          line-height: 10px;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.7rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+////////////////////////////////// REPORT PERIOD ///////////////////////////////
+.report-period {
+  margin-top: 1.2rem;
+  width: auto;
+  height: 80vh;
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.5rem 3rem;
+    text-align: start;
+    border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+    .title {
+      font-family: 'RobotoCondensed-Bold';
+      font-size: 0.9rem;
+      color: #000;
+      padding-top: 1rem;
+      text-transform: capitalize;
+    }
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 60vh;
+    overflow: auto;
+
+    .report-grid {
+      display: grid;
+      width: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+
+      .report-btn:hover {
+        color: #000000;
+        background-color: transparent;
+        outline: none;
+
+        .fa-cal {
+          filter: invert(1);
+        }
+      }
+
+      .report-btn:active {
+        color: #fff;
+        background-color: #f18455f6;
+        outline: none;
+      }
+
+      .btn {
+        box-shadow: none;
+      }
+
+      .report-btn {
+        border-radius: 25px;
+        background-color: #ffffff;
+        font-family: 'RobotoCondensed-Bold';
+        font-size: 0.7rem;
+        border: none;
+
+        border: 2px solid #e4e4e4;
+        color: black;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+      }
+    }
+
+    .report-calendar {
+      height: 150px;
+      background-color: #ffffff;
+      border-radius: 30px;
+      box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.1);
+      overflow: auto;
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.5rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+////////////////////////////////// REPORT STORES ///////////////////////////////
+.report-stores {
+  margin-top: 1.2rem;
+  width: auto;
+  height: 80vh;
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.5rem 3rem;
+    text-align: start;
+    border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+    height: 50px;
+    font-family: 'Roboto-Bold';
+    font-size: 0.9rem;
+    color: #000;
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 60vh;
+
+    .grp-brands {
+      overflow: auto;
+      height: 56vh;
+
+      .btn {
+        margin-bottom: 10px;
+      }
+    }
+
+    .stores {
+      overflow: auto;
+      height: 56vh;
+
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+
+      .w-80 {
+        width: 47%;
+      }
+
+      .stores-grid {
+        display: grid;
+        width: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+      }
+    }
+
+    .report-btn:hover {
+      color: #fff;
+      background-color: #ef5f23;
+      outline: none;
+    }
+
+    .report-btn:active {
+      color: #fff;
+      background-color: #f18455f6;
+      outline: none;
+    }
+
+    .btn {
+      box-shadow: none;
+      width: 100%;
+    }
+
+    .report-btn {
+      border-radius: 25px;
+      background-color: #ffffff;
+      font-family: 'RobotoCondensed-Bold';
+      font-size: 0.7rem;
+      border: none;
+      border: 2px solid #e4e4e4;
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.5rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+
+////////////////////////////////// REPORT GROUPING ///////////////////////////////
+.report-grouping {
+  margin-top: 1.2rem;
+  width: auto;
+  box-shadow: 3px 0px 18px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 99;
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.5rem 3rem;
+    text-align: start;
+    border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+    h5 {
+      font-family: 'Roboto-Bold';
+      font-size: 0.9rem;
+      color: #000;
+    }
+
+    h6 {
+      font-size: 0.6rem;
+      text-align: left;
+      color: grey;
+    }
+
+    .report-btn {
+      border-radius: 25px;
+      background-color: #ffffff;
+      font-family: 'RobotoCondensed-Bold';
+      font-size: 0.6rem;
+      border: 2px solid #e4e4e4;
+      color: grey;
+      padding: 2px 25px;
+    }
+
+    .active {
+      color: #fff;
+      background-color: #ef5f23;
+      outline: none;
+    }
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 60vh;
+    overflow: auto;
+
+    .grouping-grid {
+      display: grid;
+      width: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+      .report-btn:hover {
+        color: #fff;
+        background-color: #ef5f23;
+        outline: none;
+      }
+
+      .report-btn:active {
+        color: #fff;
+        background-color: #f18455f6;
+        outline: none;
+      }
+
+      .btn {
+        box-shadow: none;
+      }
+
+      .report-btn {
+        border-radius: 25px;
+        background-color: #ffffff;
+        font-family: 'RobotoCondensed-Bold';
+        font-size: 0.7rem;
+        border: none;
+
+        border: 2px solid #e4e4e4;
+        color: black;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.5rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+////////////////////////////////// REPORT SALESPERSON ///////////////////////////////
+.report-salesperson {
+  margin-top: 2.8rem;
+  width: auto;
+  box-shadow: 3px 0px 18px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  right: 40px;
+  z-index: 9;
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.5rem;
+    text-align: start;
+    height: 50px;
+    border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+    h5 {
+      font-family: 'Roboto-Bold';
+      font-size: 0.9rem;
+      color: #000;
+    }
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 57vh;
+    overflow: auto;
+
+    .sales-grid {
+      display: grid;
+      width: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+      .btn {
+        box-shadow: none;
+      }
+
+      .report-btn {
+        border-radius: 25px;
+        background-color: #ef5f23;
+        font-family: 'RobotoCondensed-Bold';
+        font-size: 0.7rem;
+        border: none;
+
+        border: 2px solid #e4e4e4;
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+    height: 50px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.5rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+
+////////////////////////////////// REPORT FILTERS ///////////////////////////////
+.report-filters {
+  margin-top: 1.2rem;
+  width: auto;
+  height: 80vh;
+
+  .header {
+    background: #ffffff;
+    border-radius: 15px 15px 0px 0px;
+    position: relative;
+    padding: 0.5rem 3rem;
+    text-align: start;
+    border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+    .title {
+      font-family: 'Roboto-Bold';
+      font-size: 0.9rem;
+      color: #000;
+      padding-top: 1rem;
+      text-transform: capitalize;
+    }
+
+    .close-btn {
+      color: #d4d4d4;
+      font-size: 0.8rem;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+    }
+  }
+
+
+  .body {
+    background: #ffffff;
+    border-radius: 0px;
+    height: 60vh;
+    overflow: auto;
+
+    .filter {
+      display: flex;
+      padding: 1rem 0;
+      border-bottom: 2px solid rgba(238, 236, 236, 0.568);
+
+      h6 {
+        font-size: 0.8rem;
+        font-family: 'RobotoCondensed-Bold';
+      }
+    }
+
+    .report-grid {
+      display: grid;
+      width: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+
+      .report-btn:hover {
+        color: #fff;
+        background-color: #ef5f23;
+        outline: none;
+      }
+
+      .report-btn:active {
+        color: #fff;
+        background-color: #f18455f6;
+        outline: none;
+      }
+
+      .btn {
+        box-shadow: none;
+      }
+
+      .report-btn {
+        border-radius: 25px;
+        background-color: #ffffff;
+        font-family: 'RobotoCondensed-Bold';
+        font-size: 0.7rem;
+        border: none;
+        border: 2px solid #e4e4e4;
+        color: black;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+      }
+    }
+  }
+
+  .footer {
+    border-top: 2px solid #e4e4e4;
+    background-color: #eff3f6;
+    border-radius: 0px 0px 20px 20px;
+
+    button {
+      border-radius: 25px;
+      background-color: #ef5f23;
+      color: white;
+      font-family: 'RobotoCondensed-Regular';
+      font-size: 0.5rem;
+      border: none;
+      width: 100%;
+      text-transform: capitalize;
+    }
+
+    .btn-sm-save {
+      background-color: black;
+      width: 100px;
+    }
+
+    .btn-view {
+      background-color: black;
+    }
+
+    .btn-save {
+      background-color: #ef5f23;
+    }
+
+    .cancel-txt {
+      text-align: center;
+
+      a {
+        text-decoration: none;
+        font-family: 'RobotoCondensed-Regular';
+        font-size: 0.6rem;
+        color: #00000075;
+      }
+    }
+  }
+}
+
+.bg-color {
+  background-color: #ef5f23 !important;
+  color: #fff !important;
+}
+
+.bg-color-none:hover {
+  color: #fff;
+  background-color: #ef5f23;
+  outline: none;
+}
+
+.month {
+  border-radius: 56.375rem;
+  font-size: 0.7rem;
+}
+
+.date {
+  border-radius: 56.375rem;
+  font-size: 0.7rem;
+}
+
+h6 {
+  cursor: pointer;
+}
+
+.filter-input {
+  margin: auto;
+  font-family: 'RobotoCondensed-Regular';
+  font-size: 13px;
+}
+
+.inputField{
+  font-family: 'RobotoCondensed-Regular';
+  font-size: 0.9rem;
+}
+
+// input[type="date"]::-webkit-calendar-picker-indicator {
+//   background: transparent;
+//   bottom: 0;
+//   color: transparent;
+//   cursor: pointer;
+//   height: auto;
+//   left: 0;
+//   position: absolute;
+//   right: 0;
+//   top: 0;
+//   width: auto;
+// }
