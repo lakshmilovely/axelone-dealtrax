@@ -1,0 +1,151 @@
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+@font-face {
+  font-family: 'Gotham\ Book\ Regular';
+  src: url('assets/fonts/Gotham\ Book\ Regular.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Gotham\ Book\ Regular.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'GothamMedium';
+  src: url('assets/fonts/GothamMedium.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/GothamMedium.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Gotham\ Bold';
+  src: url('assets/fonts/Gotham\ Bold.otf') format('otf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Gotham\ Bold.otf') format('opentype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Gotham-Light';
+  src: url('assets/fonts/Gotham-Light.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Gotham-Light.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'RobotoCondensed-Regular';
+  src: url('./assets/fonts/RobotoCondensed-Regular.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/RobotoCondensed-Regular.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'RobotoCondensed-Bold';
+  src: url('./assets/fonts/RobotoCondensed-Bold.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/RobotoCondensed-Bold.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Roboto-Condensed-Light';
+  src: url('./assets/fonts/Roboto-Condensed-Light.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Roboto-Condensed-Light.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('./assets/fonts/Roboto-Regular.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Roboto-Regular.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Roboto-Medium';
+  src: url('./assets/fonts/Roboto-Medium.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Roboto-Medium.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+@font-face {
+  font-family: 'Roboto-Bold';
+  src: url('./assets/fonts/Roboto-Bold.ttf') format('ttf'),
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+    url('assets/fonts/Roboto-Bold.ttf') format('truetype');
+  /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
+
+
+
+body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  font-family: 'Gotham\ Book\ Regular';
+  color: #000;
+  background: #e6e8ed !important;
+  font-size: .8rem;
+  -webkit-font-smoothing: none !important;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+  -webkit-font-smoothing: antialiased !important;
+  -webkit-font-smoothing: auto !important;
+  overflow-y: hidden;
+}
+
+
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: none !important;
+}
+
+button:hover {
+  border: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa;
+}
+
+::-webkit-scrollbar-track {
+  background: #ccc;
+
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2b91f0;
+  border-radius: 10px;
+}
+
+
+/* left */
+::-webkit-scrollbar-button:horizontal:start:decrement {
+  width: 20px;
+  background: url("assets/images/left.png") no-repeat center center #fff;
+  background-size: contain;
+  display: block;
+}
+
+
+
+/* right */
+::-webkit-scrollbar-button:horizontal:end:increment {
+  width: 20px;
+  background: url("assets/images/right.png") no-repeat center center #fff;
+  background-size: contain;
+  display: block;
+}
+
+.modal-content {
+  background-color: transparent !important;
+  border: none !important;
+}
